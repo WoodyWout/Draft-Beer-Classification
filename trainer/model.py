@@ -22,8 +22,6 @@ def get_epochs():
     """
     return 100
 
-#❗️❗️❗️❗️❗️❗️❗️❗️ MODEL COPY ❗️❗️❗️❗️❗️❗️❗️❗️
-
 # @tf.function
 def solution(input_layer):
     """Returns a compiled model.
@@ -87,8 +85,8 @@ def solution(input_layer):
     # Regularization
     reg_l2 = regularizers.L2(0.001) # weight regularization or weight decay : during training, an additional term is added to the loss function that penalizes large weights in the dense layer.
 
-    model.add(Dense(128, kernel_regularizer=reg_l2))  #❗️❗️❗️❗️❗️
-    # model.add(Dense(128, kernel_initializer='he_uniform')) #❗️❗️❗️❗️❗️
+    model.add(Dense(128, kernel_regularizer=reg_l2))
+    # model.add(Dense(128, kernel_initializer='he_uniform')) #❗️
     model.add(PReLU(alpha_initializer=Constant(value=0.1)))# added the `PReLU()` layer right after each `Conv2D` layer. This is necessary because `PReLU` has trainable parameters and must be added as a separate layer rather than as an activation function parameter within `Conv2D`.
     model.add(BatchNormalization(momentum=0.99, epsilon=1e-3))
     model.add(Dropout(0.5))
@@ -101,14 +99,14 @@ def solution(input_layer):
     initial_learning_rate = 0.005
 
     adam_op = Adam(
-                    learning_rate=initial_learning_rate, #❗️❗️❗️❗️❗️
+                    learning_rate=initial_learning_rate, #❗️
                     beta_1=0.9, # Beta1 : controls the exponential decay rate for the first moment estimates (mean) in Adam. It should be a value between 0 and 1. A common default value is 0.9, which means that the first moment estimate decays quickly, allowing the optimizer to adapt to rapid changes in gradients.
                     beta_2=0.999, # Beta2 : controls the exponential decay rate for the second moment estimates (variance) in Adam. Like beta 1, it should be a value between 0 and 1. A typical default value is 0.999, which means that the second moment estimate decays more slowly, providing smoother updates to the model weights.
                     #  clipvalue=0.5 # gradients will be clipped to the range [-0.5, 0.5]
                     )
 
     model.compile(
-                    loss='sparse_categorical_crossentropy',
+                    loss='sparse_categorical_crossentropy', # multiclasses
                     optimizer=adam_op,
                     metrics=['accuracy'])
 
