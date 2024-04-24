@@ -1,16 +1,16 @@
-# Draft-Beer-Classification
+# 🍺Draft-Beer-Classification🍺
 
 ## 1. Introduction
 
-Let me introduice you to this ML Engineering project which consist to classify images of Belgian draft beers. 
-There are 5 kinds of draft beer: Chimay Blue, Orval, Rochefort 10, Westmalle Tripel and Westvleteren 12. The classes are numbered 0 to 4 respectively. 
-
+Let me introduce you to this ML Engineering project, which aims to classify images of Belgian draft beers. 
+There are five kinds of draft beer: Chimay Blue, Orval, Rochefort 10, Westmalle Tripel, and Westvleteren 12. The classes are numbered 0 to 4, respectively.
 
 ## 2. The Data
 
 The data used for training and local evaluation are placed in the `data` folder in the base folder.
-The data has already been split into training data and evaluation data. They are respectively in the `train` folder and `eval` folder. In each you will find four folders which represent the beers you'll need to classify. 
-As said, there are five kinds of draft beer: Chimay Blue, Orval, Rochefort 10, Westmalle Tripel and Westvleteren 12. The classes are numbered 0 to 4 respectively. These class numbers are necessary to create a correct classifier. In data.py, you'll find tthe code to load the images into NumPy arrays and label corresponding to the images. The number of images are balanced as follow : 
+The data has already been split into training data and evaluation data. They are respectively in the `train` folder and `eval` folder. In each there are four folders which represent the beers to classify. 
+As said, there are five kinds of draft beer: Chimay Blue, Orval, Rochefort 10, Westmalle Tripel and Westvleteren 12. The classes are numbered 0 to 4 respectively. These class numbers are necessary to create a correct classifier. In data.py, there is code to load the images into NumPy arrays and label corresponding to the images. 
+The number of images are balanced as follow : 
 
 * Classe'0': Total of train images 108
 * Classe'1': Total of train images 91
@@ -18,29 +18,46 @@ As said, there are five kinds of draft beer: Chimay Blue, Orval, Rochefort 10, W
 * Classe'3': Total of train images 114
 * Classe'4': Total of train images 104
 
-Tree files : 
-* Trainer
-  * data.py : contains functions to create_data_with_labels, to collect_paths_to_files, to preprocess_image, to create a training data generator with data augmentation, to check if images need to be normalized and to check whether or not the the files/classes are balanced. 
-  * final_task.py : containes functions to prepare an image tensor for prediction, to prepare a batch of images for prediction, to prepare model for strings representing image data and export it, to get the training data from the training folder and the eval folder
-  * model.py : contains the CNN model.
-  * params.py : contains the parameters of the model deployed to Google Cloud Vertex AI.
-  * task.py : contains the function that gets the training data from the training folder, the evaluation data from the eval folder and trains the solution input from the model.py file with it. 
+Three key files:
+
+* data.py: Contains functions to load and label data, preprocess images, create a training data generator with data augmentation, normalize images if necessary, and check the balance of files/classes.
+* final_task.py: Contains functions to prepare an image tensor for prediction, prepare batches of images, export the model, and get training data from the specified folders.
+* model.py: Contains the CNN model definition.
+* params.py: Contains parameters for the model deployed to Google Cloud Vertex AI.
+* task.py: Manages the training process using data from the train and eval folders as input for the model.py.
 
 ## 3. The Model
 
-The model is a Convolutional Neural Network (CNN) attaining a 90% accuracy. I've also created a model that improves accuracy to 92% by employing transfer learning with the famous pretrained model VGG16.
+The model is a Convolutional Neural Network (CNN) achieving 90% accuracy. The accuracy was further improved to 92% by employing transfer learning with the renowned pretrained VGG16 model.
 
 ## 4. Deploying the Model
 
-Once the model working, the idea was to deploy the model to Google Cloud to turn it into an API that can receive new images of draft beers and returns its prediction them. 
-The code for this is written in the `final_task.py` file. To deploy the model, you have to run a few commands in your command line.
-
-To export the trained model and to train the model on the images in the `train` and `eval` folder, you have to execute the following command (only do this once you've completed coding the `model.py` file):
+The model is designed to be deployed on Google Cloud as an API that can receive new images of draft beers and return predictions. The deployment process is initiated by running a command in the command line, as outlined in final_task.py. To export the trained model and train it on images from the train and eval folders, the following command can be executed (after completing the model.py code):
 
 ```bash
 python -m trainer.final_task
 ```
+After executing this command, a folder named output will be created in the root directory of this repository. This folder contains the model ready for deployment to Google Cloud Vertex AI.
 
 ## 5. Checking Deployed Model
 
+To check if the deployed model works correctly, the following commands can be executed :
 
+```bash
+ENDPOINT_ID=<your_endpoint_id>
+PROJECT_ID=<your_project_id>
+
+gcloud ai endpoints predict $ENDPOINT_ID \
+    --project=$PROJECT_ID  \
+    --region=europe-west1 \
+    --json-request=check_deployed_model/test.json
+```
+
+Ensure to retrieve a prediction from the gcloud command. If there are errors, part of code must be resolve. The output of the command should look similar to this (though the numbers may vary):
+
+```
+CLASSES  PROBABILITIES
+1        [0.004145291168242693, 0.9800060987472534, 0.004468264523893595, 0.007732450030744076, 0.0036478929687291384]
+```
+
+Enjoy reading the code
