@@ -15,7 +15,7 @@ As said, there are five kinds of draft beer: Chimay Blue, Orval, Rochefort 10, W
 
 Tree files : 
 * Trainer
-* * data.py
+  * data.py
 
 
 
