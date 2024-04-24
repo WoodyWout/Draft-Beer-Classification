@@ -1,11 +1,11 @@
 # 🍺Draft-Beer-Classification🍺
 
-## 1. Introduction
+## 1️⃣ Introduction
 
 Let me introduce you to this ML Engineering project, which aims to classify images of Belgian draft beers. 
 There are five kinds of draft beer: Chimay Blue, Orval, Rochefort 10, Westmalle Tripel, and Westvleteren 12. The classes are numbered 0 to 4, respectively.
 
-## 2. The Data
+## 2️⃣ The Data
 
 The data used for training and local evaluation are placed in the `data` folder in the base folder.
 The data has already been split into training data and evaluation data. They are respectively in the `train` folder and `eval` folder. In each there are four folders which represent the beers to classify. 
@@ -26,11 +26,11 @@ Three key files:
 * params.py: Contains parameters for the model deployed to Google Cloud Vertex AI.
 * task.py: Manages the training process using data from the train and eval folders as input for the model.py.
 
-## 3. The Model
+## 3️⃣ The Model
 
 The model is a Convolutional Neural Network (CNN) achieving 90% accuracy. The accuracy was further improved to 92% by employing transfer learning with the renowned pretrained VGG16 model.
 
-## 4. Deploying the Model
+## 4️⃣ Deploying the Model
 
 The model is designed to be deployed on Google Cloud as an API that can receive new images of draft beers and return predictions. The deployment process is initiated by running a command in the command line, as outlined in final_task.py. To export the trained model and train it on images from the train and eval folders, the following command can be executed (after completing the model.py code):
 
@@ -39,7 +39,7 @@ python -m trainer.final_task
 ```
 After executing this command, a folder named output will be created in the root directory of this repository. This folder contains the model ready for deployment to Google Cloud Vertex AI.
 
-## 5. Checking Deployed Model
+## 5️⃣ Checking Deployed Model
 
 To check if the deployed model works correctly, the following commands can be executed :
 
@@ -60,4 +60,4 @@ CLASSES  PROBABILITIES
 1        [0.004145291168242693, 0.9800060987472534, 0.004468264523893595, 0.007732450030744076, 0.0036478929687291384]
 ```
 
-Enjoy reading the code
+Enjoy reading the code🤓
