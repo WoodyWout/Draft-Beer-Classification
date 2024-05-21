@@ -28,7 +28,7 @@ Three key files:
 
 ## 3️⃣ The Model
 
-The model is a Convolutional Neural Network (CNN) achieving 90% accuracy. The accuracy was further improved to 92% by employing transfer learning with the renowned pretrained VGG16 model.
+The model is a Convolutional Neural Network (CNN) achieving 90% accuracy. The accuracy was further improved to 92% by employing transfer learning with the renowned pretrained VGG16 model (not pushed on GitHub).
 
 ## 4️⃣ Deploying the Model
 
